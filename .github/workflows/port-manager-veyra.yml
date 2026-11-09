@@ -1,0 +1,80 @@
+# Port Manager Veyra: build, test on every OS, check compatibility with JetBrains' Plugin Verifier, and publish.
+#
+#   Every push / pull request that touches port-manager-veyra/  → test on Windows, macOS, Linux + verify + plugin .zip
+#   Tag port-manager-veyra-v1.2.3                               → all of the above, then publish to JetBrains Marketplace
+#
+# Publishing needs the repository secret JETBRAINS_MARKETPLACE_TOKEN (Marketplace → profile → My Tokens).
+name: Port Manager Veyra
+
+on:
+  push:
+    branches: [main]
+    paths: ["port-manager-veyra/**", ".github/workflows/port-manager-veyra.yml"]
+    tags: ["port-manager-veyra-v*"]
+  pull_request:
+    paths: ["port-manager-veyra/**", ".github/workflows/port-manager-veyra.yml"]
+  workflow_dispatch:
+
+defaults:
+  run:
+    working-directory: port-manager-veyra
+
+jobs:
+  test:
+    name: Test (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with: { distribution: temurin, java-version: 21 }
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Unit and end-to-end tests
+        run: ./gradlew test --console=plain
+      - name: Test report
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-report-${{ matrix.os }}
+          path: port-manager-veyra/build/reports/tests/
+          retention-days: 7
+
+  verify:
+    name: Build and verify
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with: { distribution: temurin, java-version: 21 }
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Build the plugin
+        run: ./gradlew buildPlugin verifyPluginStructure --console=plain
+      - name: JetBrains Plugin Verifier
+        run: ./gradlew verifyPlugin --console=plain
+      - name: Plugin .zip
+        uses: actions/upload-artifact@v4
+        with:
+          name: port-manager-veyra
+          path: port-manager-veyra/build/distributions/*.zip
+          retention-days: 30
+
+  publish:
+    name: Publish to JetBrains Marketplace
+    if: startsWith(github.ref, 'refs/tags/port-manager-veyra-v')
+    needs: verify
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with: { distribution: temurin, java-version: 21 }
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Publish
+        env:
+          PUBLISH_TOKEN: ${{ secrets.JETBRAINS_MARKETPLACE_TOKEN }}
+        run: |
+          if [ -z "$PUBLISH_TOKEN" ]; then echo "::error::Add the JETBRAINS_MARKETPLACE_TOKEN repository secret."; exit 1; fi
+          ./gradlew publishPlugin --console=plain

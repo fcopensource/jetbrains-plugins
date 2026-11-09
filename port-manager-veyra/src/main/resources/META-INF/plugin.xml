@@ -1,0 +1,100 @@
+<idea-plugin>
+    <id>com.flightcoders.veyra.portmanager</id>
+    <name>Port Manager Veyra</name>
+    <vendor email="hire@flightcoders.com" url="https://flightcoders.com">FlightCoders</vendor>
+
+    <description><![CDATA[
+<p><b>"Port 3000 is already in use"? Not any more.</b></p>
+<p>Port Manager Veyra shows every port in use on your computer, the program behind it and the project it belongs to,
+and stops it in one click. No more <code>netstat</code>, <code>lsof</code> or Task Manager.</p>
+
+<h3>What you get</h3>
+<ul>
+  <li><b>A live Ports tool window</b>: every listening port, grouped into <i>This Project</i>, <i>Apps &amp; Dev Servers</i>,
+      <i>Editors &amp; Tools</i> and <i>System</i>, refreshed automatically.</li>
+  <li><b>Knows what's running</b>: recognises 50+ dev servers, runtimes and databases, including Vite, Next.js, Nuxt, Angular,
+      Django, Flask, FastAPI, Rails, Laravel, Spring Boot, Ktor, Quarkus, .NET, PostgreSQL, MySQL, MongoDB, Redis and Docker.</li>
+  <li><b>One-click actions</b>: Open in Browser, Copy Address, Stop and Reveal Folder. Double-click a port to open it.</li>
+  <li><b>Free a Port…</b>: type a port number and stop whatever is holding it.</li>
+  <li><b>"Your server started"</b>: a notification when your project's dev server starts, with Open in Browser and Stop.</li>
+  <li><b>A status-bar counter</b> of the ports your apps are using.</li>
+</ul>
+
+<h3>Safe by design</h3>
+<ul>
+  <li>System services, other users' programs and <b>JetBrains IDEs themselves</b> are protected: they are shown, but can never be stopped.</li>
+  <li>Every stop asks first and tells you which other ports the program also frees.</li>
+  <li>Nothing leaves your computer: no account, no telemetry.</li>
+</ul>
+
+<p>Works on <b>Windows, macOS and Linux</b>, in every JetBrains IDE: IntelliJ IDEA, WebStorm, PyCharm, GoLand, PhpStorm, Rider,
+CLion, RubyMine, RustRover and Android Studio.</p>
+
+<p>Open it from <b>View → Tool Windows → Ports</b>, <b>Tools → Show Ports in Use</b> or the status bar.<br/>
+Made by <a href="https://flightcoders.com">FlightCoders</a>, the team behind <a href="https://veyraeditor.com">Veyra Studio</a>.</p>
+    ]]></description>
+
+    <depends>com.intellij.modules.platform</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <toolWindow id="Ports" anchor="bottom" icon="/icons/ports.svg"
+                    factoryClass="com.flightcoders.veyra.ports.ui.PortsToolWindowFactory"/>
+        <statusBarWidgetFactory id="VeyraPorts.Widget" order="first"
+                                implementation="com.flightcoders.veyra.ports.ui.PortsStatusBarWidgetFactory"/>
+        <notificationGroup id="Port Manager Veyra" displayType="BALLOON"/>
+        <postStartupActivity implementation="com.flightcoders.veyra.ports.ui.PortsStartupActivity"/>
+    </extensions>
+
+    <actions>
+        <action id="VeyraPorts.Refresh" class="com.flightcoders.veyra.ports.ui.RefreshAction"
+                text="Refresh" description="Scan the ports in use again" icon="AllIcons.Actions.Refresh"/>
+        <action id="VeyraPorts.FreePort" class="com.flightcoders.veyra.ports.ui.FreePortAction"
+                text="Free a Port…" description="Type a port number and stop whatever is listening on it"/>
+        <action id="VeyraPorts.ToggleSystem" class="com.flightcoders.veyra.ports.ui.ToggleSystemAction"
+                text="Show System Ports" description="Also show system services and other users' programs (never stoppable)"
+                icon="AllIcons.Actions.ToggleVisibility"/>
+        <action id="VeyraPorts.ToggleNotify" class="com.flightcoders.veyra.ports.ui.ToggleNotifyAction"
+                text="Notify When a Project Server Starts" description="Show a notification when a server starts from this project's folder"/>
+        <action id="VeyraPorts.ShowHidden" class="com.flightcoders.veyra.ports.ui.ShowHiddenPortsAction"
+                text="Show Hidden Ports" description="Show the ports you hid again"/>
+        <action id="VeyraPorts.OpenInBrowser" class="com.flightcoders.veyra.ports.ui.OpenInBrowserAction"
+                text="Open in Browser" description="Open this port in your browser" icon="AllIcons.General.Web"/>
+        <action id="VeyraPorts.CopyAddress" class="com.flightcoders.veyra.ports.ui.CopyAddressAction"
+                text="Copy Address" description="Copy this port's address" icon="AllIcons.Actions.Copy"/>
+        <action id="VeyraPorts.Stop" class="com.flightcoders.veyra.ports.ui.StopAction"
+                text="Stop" description="Stop the program listening on this port" icon="AllIcons.Actions.Suspend"/>
+        <action id="VeyraPorts.RevealFolder" class="com.flightcoders.veyra.ports.ui.RevealFolderAction"
+                text="Reveal Folder" description="Open the folder this program runs from" icon="AllIcons.Actions.MenuOpen"/>
+        <action id="VeyraPorts.Hide" class="com.flightcoders.veyra.ports.ui.HidePortAction"
+                text="Hide This Port" description="Don't show this port in the list"/>
+
+        <group id="VeyraPorts.Toolbar">
+            <reference ref="VeyraPorts.Refresh"/>
+            <reference ref="VeyraPorts.FreePort"/>
+            <separator/>
+            <reference ref="VeyraPorts.OpenInBrowser"/>
+            <reference ref="VeyraPorts.CopyAddress"/>
+            <reference ref="VeyraPorts.Stop"/>
+            <separator/>
+            <reference ref="VeyraPorts.ToggleSystem"/>
+            <group id="VeyraPorts.More" text="More" popup="true" icon="AllIcons.Actions.More">
+                <reference ref="VeyraPorts.ToggleNotify"/>
+                <reference ref="VeyraPorts.ShowHidden"/>
+            </group>
+        </group>
+
+        <group id="VeyraPorts.Context">
+            <reference ref="VeyraPorts.OpenInBrowser"/>
+            <reference ref="VeyraPorts.CopyAddress"/>
+            <reference ref="VeyraPorts.RevealFolder"/>
+            <separator/>
+            <reference ref="VeyraPorts.Stop"/>
+            <reference ref="VeyraPorts.Hide"/>
+        </group>
+
+        <action id="VeyraPorts.Show" class="com.flightcoders.veyra.ports.ui.ShowPortsAction"
+                text="Show Ports in Use" description="Open the Ports tool window" icon="/icons/ports.svg">
+            <add-to-group group-id="ToolsMenu" anchor="last"/>
+        </action>
+    </actions>
+</idea-plugin>
