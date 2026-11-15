@@ -1,0 +1,64 @@
+<idea-plugin>
+    <id>com.flightcoders.veyra.devicelab</id>
+    <name>Device Lab Veyra</name>
+    <vendor email="hire@flightcoders.com" url="https://flightcoders.com">FlightCoders</vendor>
+
+    <description><![CDATA[
+<p><b>Test your Android app the way your users really use it, in one click.</b></p>
+<p>Device Lab Veyra is a control panel for your phone or emulator, right inside Android Studio. Switch to dark theme, the
+largest font, Arabic, right-to-left, slow animations or airplane mode instantly, and see how your app copes. No digging
+through Settings, no Developer options, no <code>adb</code> commands to remember.</p>
+
+<h3>One click, any condition</h3>
+<ul>
+  <li><b>Theme</b>: light, dark or auto.</li>
+  <li><b>Font size</b> up to 200 % (Android 14+) and <b>display size</b> from Small to Largest: find text that gets cut off.</li>
+  <li><b>App language</b> (Android 13+): Arabic, Hebrew, German, Finnish, Thai, Japanese, Hindi and more, plus Android's
+      <b>pseudolocales</b> for spotting text you forgot to translate. Only your app changes; the phone keeps its language.</li>
+  <li><b>Right-to-left layout</b>: your app restarts in RTL straight away.</li>
+  <li><b>Animations</b> off, faster or up to 10× slower, <b>layout bounds</b> and <b>show taps</b>.</li>
+  <li><b>Airplane mode</b>: see how your app behaves offline.</li>
+  <li><b>Clean status bar</b> for store screenshots: 12:00, full battery, full signal, no notifications.</li>
+</ul>
+
+<h3>Presets</h3>
+<ul>
+  <li><b>Worst case</b>: largest font, largest display size, right-to-left and dark theme at once. The hardest screen
+      your layout will ever meet, in one click.</li>
+  <li><b>Screenshot ready</b>, <b>Slow motion</b>, and <b>Reset</b>, which puts the device back exactly as it was.</li>
+</ul>
+
+<h3>Your app</h3>
+<ul>
+  <li>Finds your app's package name in <code>build.gradle</code> by itself.</li>
+  <li><b>Permissions</b>: grant or revoke each runtime permission with a checkbox, to test "permission denied" paths.</li>
+  <li><b>Deep links</b>: lists every link in your <code>AndroidManifest.xml</code> and Navigation graphs; open any of them on
+      the device and see how long the screen took.</li>
+  <li><b>Restart app</b>, <b>Clear data</b> (asks first) and <b>Screenshot</b>, which opens the picture in the editor.</li>
+</ul>
+
+<p>Works with emulators and real phones (USB or Wi-Fi debugging), Android 8 and newer, in <b>Android Studio</b> and
+IntelliJ IDEA. It finds <code>adb</code> in your Android SDK by itself. Nothing leaves your computer: no account, no telemetry.</p>
+
+<p>Open it from <b>View → Tool Windows → Device Lab</b> or <b>Tools → Open Device Lab</b>.<br/>
+Made by <a href="https://flightcoders.com">FlightCoders</a>, the team behind <a href="https://veyraeditor.com">Veyra Studio</a>.</p>
+    ]]></description>
+
+    <depends>com.intellij.modules.platform</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <toolWindow id="Device Lab" anchor="right" icon="/icons/deviceLab.svg"
+                    factoryClass="com.flightcoders.veyra.devicelab.ui.DeviceLabToolWindowFactory"/>
+    </extensions>
+
+    <actions>
+        <group id="VeyraDeviceLab.Tools" text="Device Lab" popup="false">
+            <action id="VeyraDeviceLab.Show" class="com.flightcoders.veyra.devicelab.ui.ShowDeviceLabAction"
+                    text="Open Device Lab" description="Control your phone or emulator: theme, font size, language, RTL, permissions and more"
+                    icon="/icons/deviceLab.svg"/>
+            <action id="VeyraDeviceLab.ChooseAdb" class="com.flightcoders.veyra.devicelab.ui.ChooseAdbAction"
+                    text="Device Lab: Set adb Path…" description="Choose adb if Device Lab can't find your Android SDK"/>
+            <add-to-group group-id="ToolsMenu" anchor="last"/>
+        </group>
+    </actions>
+</idea-plugin>

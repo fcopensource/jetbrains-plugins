@@ -12,6 +12,7 @@
 | | Plugin | What it does | Status |
 | --- | --- | --- | --- |
 | <img src="port-manager-veyra/src/main/resources/META-INF/pluginIcon.svg" width="40" alt="" /> | **[Port Manager Veyra](port-manager-veyra)** | See every port in use, the program behind it and the project it belongs to, and stop it in one click. Recognises 50+ dev servers and databases. | 1.0.0 · [![Build](https://github.com/fcopensource/jetbrains-plugins/actions/workflows/port-manager-veyra.yml/badge.svg)](https://github.com/fcopensource/jetbrains-plugins/actions/workflows/port-manager-veyra.yml) |
+| <img src="device-lab-veyra/src/main/resources/META-INF/pluginIcon.svg" width="40" alt="" /> | **[Device Lab Veyra](device-lab-veyra)** | A control panel for your Android phone or emulator in Android Studio: dark theme, 200 % font, Arabic and right-to-left, slow animations, airplane mode, permissions and deep links in one click. The **Worst case** preset finds layout bugs in seconds. | 1.0.0 · [![Build](https://github.com/fcopensource/jetbrains-plugins/actions/workflows/device-lab-veyra.yml/badge.svg)](https://github.com/fcopensource/jetbrains-plugins/actions/workflows/device-lab-veyra.yml) |
 
 More are on the way.
 
@@ -22,6 +23,7 @@ workflow in [`.github/workflows`](.github/workflows):
 
 ```
 port-manager-veyra/     Port Manager Veyra
+device-lab-veyra/       Device Lab Veyra (Android Studio)
 .github/workflows/      build, test on Windows/macOS/Linux, verify and publish, one workflow per plugin
 ```
 
