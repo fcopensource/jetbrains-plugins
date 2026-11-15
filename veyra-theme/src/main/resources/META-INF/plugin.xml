@@ -1,0 +1,39 @@
+<idea-plugin>
+    <id>com.flightcoders.veyra.theme</id>
+    <name>Veyra Theme</name>
+    <vendor email="hire@flightcoders.com" url="https://flightcoders.com">FlightCoders</vendor>
+
+    <description><![CDATA[
+<p><b>A warm, modern dark and light theme in the FlightCoders colours: coral, amber and violet on deep ink.</b></p>
+<p>Veyra Theme is the look of <a href="https://veyraeditor.com">Veyra Studio</a>, brought to every JetBrains IDE.</p>
+
+<h3>Two themes</h3>
+<ul>
+  <li><b>Veyra Dark</b>: a deep ink-violet background that is easy on the eyes for long sessions, with glowing coral, amber and violet accents.</li>
+  <li><b>Veyra Light</b>: soft lavender paper with crisp, high-contrast code.</li>
+</ul>
+
+<h3>Every pixel themed</h3>
+<ul>
+  <li><b>The whole IDE</b>: toolbars, tool windows, tabs, popups, search, dialogs, the Run widget, notifications and checkboxes.
+      On 2025.3 and newer you get the rounded <i>Islands</i> look.</li>
+  <li><b>Signature details</b>: coral-to-violet default buttons, a coral caret and tab underline, an amber current line number,
+      and an amber-to-violet progress bar.</li>
+  <li><b>Matching editor colour schemes</b> for Java, Kotlin, Python, JavaScript, TypeScript, HTML, CSS, SQL, Go, Rust, PHP, Markdown
+      and more, plus the debugger, diffs, VCS, search highlights and the terminal.</li>
+</ul>
+
+<h3>How to use it</h3>
+<p><b>Settings → Appearance &amp; Behavior → Appearance → Theme</b> and pick <b>Veyra Dark</b> or <b>Veyra Light</b>.
+The matching editor colour scheme switches with it.</p>
+
+<p>Made by <a href="https://flightcoders.com">FlightCoders</a>, the team behind Veyra Studio and the Veyra extensions.</p>
+    ]]></description>
+
+    <depends>com.intellij.modules.platform</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <themeProvider id="com.flightcoders.veyra.theme.dark" path="/themes/veyra-dark.theme.json"/>
+        <themeProvider id="com.flightcoders.veyra.theme.light" path="/themes/veyra-light.theme.json"/>
+    </extensions>
+</idea-plugin>
