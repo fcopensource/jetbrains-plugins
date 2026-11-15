@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.1
+
+- Uses only the public IntelliJ Platform API: no internal or deprecated API usage reported by the Plugin Verifier on 2024.3 through 2026.3
+
 ## 1.0.0
 
 - A live **Ports** tool window: every listening port, grouped into This Project, Apps & Dev Servers, Editors & Tools and System

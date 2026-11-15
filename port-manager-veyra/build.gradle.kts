@@ -11,6 +11,11 @@ version = providers.gradleProperty("pluginVersion").get()
 
 kotlin {
     jvmToolchain(21)
+    compilerOptions {
+        // Use the IDE interfaces' Java default methods directly. Otherwise Kotlin copies them into our classes
+        // (ToolWindowFactory.getIcon, getAnchor, manage…), which the Plugin Verifier reports as internal API usage.
+        jvmDefault.set(org.jetbrains.kotlin.gradle.dsl.JvmDefaultMode.NO_COMPATIBILITY)
+    }
 }
 
 repositories {
@@ -38,6 +43,10 @@ intellijPlatform {
             untilBuild = provider { null }
         }
         changeNotes = """
+            <h3>1.0.1</h3>
+            <ul>
+              <li>Uses only the public IntelliJ Platform API, for compatibility with future IDE versions</li>
+            </ul>
             <h3>1.0.0</h3>
             <ul>
               <li>Every listening port in a Ports tool window, grouped into This Project, Apps &amp; Dev Servers, Editors &amp; Tools and System</li>
