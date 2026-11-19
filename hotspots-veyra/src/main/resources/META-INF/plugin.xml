@@ -1,0 +1,79 @@
+<idea-plugin>
+    <id>com.flightcoders.veyra.hotspots</id>
+    <name>Hotspots Veyra</name>
+    <vendor email="hire@flightcoders.com" url="https://flightcoders.com">FlightCoders</vendor>
+
+    <description><![CDATA[
+<p><b>A living heat map of your codebase. Find the files where bugs live.</b></p>
+<p>Some files cause most of the trouble: they're complicated <i>and</i> they change all the time. Hotspots Veyra reads your
+project's own git history, finds those files, and shows your whole codebase as one heat map, with who knows each file,
+which files secretly change together, and the code only one person understands.</p>
+
+<h3>What you get</h3>
+<ul>
+  <li><b>The hotspot map</b>: every file is a tile, sized by its code and coloured by risk. Hover for details, click a file for
+      its full story, double-click to open it, click a folder's name to zoom in.</li>
+  <li><b>Five ways to look</b>: Hotspots, Change frequency, Complexity, Code age and Knowledge risk.</li>
+  <li><b>Top Hotspots</b>, ranked: the files to refactor first, with the reason spelled out.</li>
+  <li><b>Changes Together</b>: pairs of files that keep landing in the same commits, often across folders. A hidden dependency, made visible.</li>
+  <li><b>Knowledge Risks</b>: files only one person has changed, and code whose only author has left.</li>
+  <li><b>🔥 in the Project view</b> on the hottest files, and the open file's rank in the status bar.</li>
+  <li><b>Why Is This a Hotspot?</b>, <b>File History</b> with each commit's diff, and a Markdown <b>report</b> for your team.</li>
+</ul>
+
+<h3>How it's measured</h3>
+<p>Change frequency comes from your git history (the last year by default). Complexity comes from the file's lines of code and how
+deeply they're indented, which follows nesting in every language: Java, Kotlin, Python, TypeScript, Go, Rust, C#, PHP and the rest.
+The hotspot score is the two multiplied, each on a log scale.</p>
+
+<h3>Private</h3>
+<p>Everything happens on your computer: Hotspots runs <code>git log</code> and reads your files, and that's all. No account, no telemetry.</p>
+
+<p>Open it from <b>View → Tool Windows → Hotspots</b>. Works in every JetBrains IDE: IntelliJ IDEA, Android Studio, PyCharm, WebStorm,
+GoLand, PhpStorm, Rider, CLion, RubyMine and RustRover.<br/>
+Made by <a href="https://flightcoders.com">FlightCoders</a>, the team behind <a href="https://veyraeditor.com">Veyra Studio</a>.</p>
+    ]]></description>
+
+    <depends>com.intellij.modules.platform</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <toolWindow id="Hotspots" anchor="bottom" icon="/icons/hotspots.svg"
+                    factoryClass="com.flightcoders.veyra.hotspots.ui.HotspotsToolWindowFactory"/>
+        <statusBarWidgetFactory id="VeyraHotspots.Widget" order="after positionWidget"
+                                implementation="com.flightcoders.veyra.hotspots.ui.HotspotsStatusBarFactory"/>
+        <projectViewNodeDecorator implementation="com.flightcoders.veyra.hotspots.ui.HotspotsProjectViewDecorator"/>
+        <postStartupActivity implementation="com.flightcoders.veyra.hotspots.ui.HotspotsStartup"/>
+        <projectConfigurable parentId="tools" id="VeyraHotspots.Settings" displayName="Hotspots Veyra"
+                             instance="com.flightcoders.veyra.hotspots.HotspotsConfigurable"/>
+        <notificationGroup id="Hotspots Veyra" displayType="BALLOON"/>
+    </extensions>
+
+    <actions>
+        <action id="VeyraHotspots.Refresh" class="com.flightcoders.veyra.hotspots.ui.RefreshAction"
+                text="Refresh Hotspots" description="Read the git history again" icon="AllIcons.Actions.Refresh"/>
+        <action id="VeyraHotspots.Period" class="com.flightcoders.veyra.hotspots.ui.ChangePeriodAction"
+                text="Change Period…" description="Choose how much git history to read" icon="AllIcons.Vcs.History"/>
+        <action id="VeyraHotspots.CopyReport" class="com.flightcoders.veyra.hotspots.ui.CopyReportAction"
+                text="Copy Hotspots Report" description="Copy the top hotspots, coupled files and knowledge risks as Markdown" icon="AllIcons.Actions.Copy"/>
+        <action id="VeyraHotspots.ShowMap" class="com.flightcoders.veyra.hotspots.ui.ShowMapAction"
+                text="Show in Hotspot Map" description="Open the Hotspots map with this file selected" icon="/icons/flame.svg">
+            <add-to-group group-id="ToolsMenu" anchor="last"/>
+        </action>
+        <action id="VeyraHotspots.Explain" class="com.flightcoders.veyra.hotspots.ui.ExplainAction"
+                text="Why Is This a Hotspot?" description="How often this file changes, how complex it is, and who knows it" icon="/icons/flame.svg">
+            <add-to-group group-id="ProjectViewPopupMenu" anchor="last"/>
+            <add-to-group group-id="EditorTabPopupMenu" anchor="last"/>
+            <add-to-group group-id="EditorPopupMenu" anchor="last"/>
+        </action>
+        <action id="VeyraHotspots.OpenTogether" class="com.flightcoders.veyra.hotspots.ui.OpenTogetherAction"
+                text="Open Files That Change With This One" description="Open the files that usually change in the same commits">
+            <add-to-group group-id="ProjectViewPopupMenu" anchor="last"/>
+            <add-to-group group-id="EditorTabPopupMenu" anchor="last"/>
+        </action>
+        <group id="VeyraHotspots.Toolbar">
+            <reference ref="VeyraHotspots.Refresh"/>
+            <reference ref="VeyraHotspots.Period"/>
+            <reference ref="VeyraHotspots.CopyReport"/>
+        </group>
+    </actions>
+</idea-plugin>
