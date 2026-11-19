@@ -34,6 +34,10 @@ intellijPlatform {
             untilBuild = provider { null }
         }
         changeNotes = """
+            <h3>1.0.1</h3>
+            <ul>
+              <li>A new icon: an editor window in the Veyra colours</li>
+            </ul>
             <h3>1.0.0</h3>
             <ul>
               <li>Veyra Dark and Veyra Light, in the FlightCoders colours: coral, amber and violet on a deep ink background</li>

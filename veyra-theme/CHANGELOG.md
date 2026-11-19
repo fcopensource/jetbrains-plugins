@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.1
+
+- A new icon: an editor window framed in the FlightCoders gradient, with code in the theme's own colours.
+
 ## 1.0.0
 
 - **Veyra Dark** and **Veyra Light**, in the FlightCoders colours: coral, amber and violet on deep ink.
