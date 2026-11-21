@@ -1,0 +1,43 @@
+<idea-plugin>
+    <id>com.flightcoders.veyra.neonvice</id>
+    <name>Veyra Neon Vice</name>
+    <vendor email="hire@flightcoders.com" url="https://flightcoders.com">FlightCoders</vendor>
+
+    <description><![CDATA[
+<p><b>Code like it's a neon night in an 80s beach city.</b> Hot-pink and electric-cyan neon over a deep purple night,
+with a sunset of yellow and orange. Plus a bright daylight version.</p>
+
+<h3>Two themes</h3>
+<ul>
+  <li><b>Veyra Neon Vice</b>: a deep purple night lit by neon. Hot-pink keywords, electric-cyan strings, sunset-yellow
+      functions, violet types, mint fields and orange numbers.</li>
+  <li><b>Veyra Neon Vice Daylight</b>: the same city by day, on a crisp white editor with deepened colours for contrast.</li>
+</ul>
+
+<h3>Every pixel themed</h3>
+<ul>
+  <li><b>The whole IDE</b>: toolbars, tool windows, tabs, popups, Search Everywhere, dialogs, the Run widget and notifications,
+      1,200+ UI keys in one palette. On 2025.3 and newer you get the rounded <i>Islands</i> look.</li>
+  <li><b>Signature details</b>: a pink-to-orange sunset default button, a hot-pink tab underline, an electric-cyan caret,
+      a pink current line number and a pink-to-cyan progress bar.</li>
+  <li><b>Matching editor colour schemes</b> for Java, Kotlin, Python, JavaScript, TypeScript, HTML, CSS, SQL, Go, Rust, PHP,
+      Markdown and more, plus the debugger, diffs, VCS, search highlights and the terminal.</li>
+  <li><b>Easy to read</b>: every syntax colour meets WCAG AA contrast (4.5:1) on its background, comments included.</li>
+</ul>
+
+<h3>How to use it</h3>
+<p><b>Settings → Appearance &amp; Behavior → Appearance → Theme</b> and pick <b>Veyra Neon Vice</b> or
+<b>Veyra Neon Vice Daylight</b>. The matching editor colour scheme switches with it.</p>
+
+<p>Made by <a href="https://flightcoders.com">FlightCoders</a>, the team behind <a href="https://veyraeditor.com">Veyra Studio</a>.
+More themes: <a href="https://veyraeditor.com/jetbrains/aurora">Veyra Aurora</a> and
+<a href="https://plugins.jetbrains.com/plugin/36164-veyra-theme">Veyra Theme</a>.</p>
+    ]]></description>
+
+    <depends>com.intellij.modules.platform</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <themeProvider id="com.flightcoders.veyra.neonvice.dark" path="/themes/veyra-neon-vice-dark.theme.json"/>
+        <themeProvider id="com.flightcoders.veyra.neonvice.light" path="/themes/veyra-neon-vice-light.theme.json"/>
+    </extensions>
+</idea-plugin>
