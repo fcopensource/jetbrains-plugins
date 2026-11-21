@@ -17,6 +17,7 @@
 | <img src="hotspots-veyra/src/main/resources/META-INF/pluginIcon.svg" width="40" alt="" /> | **[Hotspots Veyra](hotspots-veyra)** | A heat map of your codebase from its own git history: the complex, often-changed files where bugs live, files that change together, and code only one person knows. | 1.0.0 · [![Build](https://github.com/fcopensource/jetbrains-plugins/actions/workflows/hotspots-veyra.yml/badge.svg)](https://github.com/fcopensource/jetbrains-plugins/actions/workflows/hotspots-veyra.yml) |
 | <img src="aura-veyra/src/main/resources/META-INF/pluginIcon.svg" width="40" alt="" /> | **[Aura Veyra](aura-veyra)** | Your coding aura ✨ Earn aura for clearing errors, commits and green tests; lose it for "wip" commits 💀. Ranks from NPC to Final Boss, a 🔥 streak and a shareable aura card. | 1.0.0 · [![Build](https://github.com/fcopensource/jetbrains-plugins/actions/workflows/aura-veyra.yml/badge.svg)](https://github.com/fcopensource/jetbrains-plugins/actions/workflows/aura-veyra.yml) |
 | <img src="veyra-aurora/src/main/resources/META-INF/pluginIcon.svg" width="40" alt="" /> | **[Veyra Aurora](veyra-aurora)** | The northern lights, in your IDE: a midnight-blue theme with aurora green, teal, ice blue and soft violet, plus Veyra Aurora Light. Every syntax colour meets WCAG AA. | 1.0.0 · [![Build](https://github.com/fcopensource/jetbrains-plugins/actions/workflows/veyra-aurora.yml/badge.svg)](https://github.com/fcopensource/jetbrains-plugins/actions/workflows/veyra-aurora.yml) |
+| <img src="veyra-neon-vice/src/main/resources/META-INF/pluginIcon.svg" width="40" alt="" /> | **[Veyra Neon Vice](veyra-neon-vice)** | Neon nights in an 80s beach city: hot-pink and electric-cyan neon over a deep purple night, plus Veyra Neon Vice Daylight. Every syntax colour meets WCAG AA. | 1.0.0 · [![Build](https://github.com/fcopensource/jetbrains-plugins/actions/workflows/veyra-neon-vice.yml/badge.svg)](https://github.com/fcopensource/jetbrains-plugins/actions/workflows/veyra-neon-vice.yml) |
 
 More are on the way.
 
@@ -32,6 +33,7 @@ veyra-theme/            Veyra Theme (dark and light)
 hotspots-veyra/         Hotspots Veyra (codebase heat map)
 aura-veyra/             Aura Veyra (your coding aura)
 veyra-aurora/           Veyra Aurora (northern-lights theme, dark and light)
+veyra-neon-vice/        Veyra Neon Vice (80s neon-city theme, dark and light)
 .github/workflows/      build, test on Windows/macOS/Linux, verify and publish, one workflow per plugin
 ```
 
