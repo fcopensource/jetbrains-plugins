@@ -1,0 +1,61 @@
+# Veyra Aurora: build, check compatibility with JetBrains' Plugin Verifier, and publish.
+#
+#   Every push / pull request that touches veyra-aurora/  → build + verify + plugin .zip
+#   Tag veyra-aurora-v1.2.3                               → all of the above, then publish to JetBrains Marketplace
+#
+# Publishing needs the repository secret JETBRAINS_MARKETPLACE_TOKEN (Marketplace → profile → My Tokens).
+name: Veyra Aurora
+
+on:
+  push:
+    branches: [main]
+    paths: ["veyra-aurora/**", ".github/workflows/veyra-aurora.yml"]
+    tags: ["veyra-aurora-v*"]
+  pull_request:
+    paths: ["veyra-aurora/**", ".github/workflows/veyra-aurora.yml"]
+  workflow_dispatch:
+
+defaults:
+  run:
+    working-directory: veyra-aurora
+
+jobs:
+  verify:
+    name: Build and verify
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with: { distribution: temurin, java-version: 21 }
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Theme files are valid
+        run: |
+          for f in src/main/resources/themes/*.theme.json; do python3 -m json.tool "$f" > /dev/null || exit 1; done
+          for f in src/main/resources/themes/*.xml; do python3 -c "import sys, xml.dom.minidom as m; m.parse(sys.argv[1])" "$f" || exit 1; done
+      - name: Build the plugin
+        run: ./gradlew buildPlugin verifyPluginStructure --console=plain
+      - name: JetBrains Plugin Verifier
+        run: ./gradlew verifyPlugin --console=plain
+      - name: Plugin .zip
+        uses: actions/upload-artifact@v4
+        with:
+          name: veyra-aurora
+          path: veyra-aurora/build/distributions/*.zip
+          retention-days: 30
+
+  publish:
+    name: Publish to JetBrains Marketplace
+    if: startsWith(github.ref, 'refs/tags/veyra-aurora-v')
+    needs: verify
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with: { distribution: temurin, java-version: 21 }
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Publish
+        env:
+          PUBLISH_TOKEN: ${{ secrets.JETBRAINS_MARKETPLACE_TOKEN }}
+        run: |
+          if [ -z "$PUBLISH_TOKEN" ]; then echo "::error::Add the JETBRAINS_MARKETPLACE_TOKEN repository secret."; exit 1; fi
+          ./gradlew publishPlugin --console=plain
