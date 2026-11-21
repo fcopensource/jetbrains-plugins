@@ -1,0 +1,74 @@
+<idea-plugin>
+    <id>com.flightcoders.veyra.aura</id>
+    <name>Aura Veyra</name>
+    <vendor email="hire@flightcoders.com" url="https://flightcoders.com">FlightCoders</vendor>
+
+    <description><![CDATA[
+<p><b>Your coding aura ✨ Farm it, flex it, share it.</b></p>
+<p>Every time you clear your errors, ship a commit or get your tests green, your aura goes up. Leave a <code>wip</code> commit
+message or a <code>debugger</code> statement? That's a minus 💀. Rank up from <b>NPC</b> to <b>Final Boss</b>, keep your
+<b>🔥 streak</b> alive, and share your <b>aura card</b>.</p>
+
+<h3>How to farm aura</h3>
+<ul>
+  <li>🧹 <b>+15</b> clear every error in a file</li>
+  <li>📦 <b>+20</b> ship a commit, ✍️ <b>+5</b> with a commit message that eats (<code>feat: add dark mode</code>)</li>
+  <li>✅ <b>+20</b> tests pass in the IDE's test runner, 🏗️ <b>+10</b> build passes</li>
+  <li>✂️ <b>+15</b> delete 50+ lines, 🔒 <b>+10</b> every 25 minutes locked in, 💾 <b>+1</b> clean save</li>
+  <li>🔥 <b>+5</b> per day of your streak, 🦉 <b>+5</b> coding after midnight</li>
+</ul>
+<p><b>Roast mode</b> (turn it off any time): −5 for "wip" commit messages, −5 failing tests, −3 failed builds, −5 a leftover
+<code>debugger</code>. Every move has a daily limit, so aura can't be farmed by spamming saves.</p>
+
+<h3>Ranks</h3>
+<p>🧍 NPC → 🎭 Side Character → ✨ Main Character → 🔒 Locked In → 🗿 Sigma → 🌾 Aura Farmer → 🐐 Goated → 👑 Final Boss</p>
+
+<h3>What you get</h3>
+<ul>
+  <li>Your aura and streak in the <b>status bar</b>, with each move as it happens.</li>
+  <li>The <b>Aura</b> tool window: your rank and progress, streak, the week as a chart, your best moves and every move.</li>
+  <li><b>Share My Aura Card</b>: a 1200 × 630 image for X, LinkedIn and Instagram, with the caption copied.</li>
+  <li>A notification when you <b>rank up</b>.</li>
+</ul>
+
+<h3>Private</h3>
+<p>Aura only counts what the IDE already sees on your computer: errors, saves, commits (from Git, however you make them),
+test runs and builds. It's stored with your IDE settings. No account, no telemetry.</p>
+
+<p>Open it from <b>View → Tool Windows → Aura</b> or click your aura in the status bar. Works in every JetBrains IDE:
+IntelliJ IDEA, Android Studio, PyCharm, WebStorm, GoLand, PhpStorm, Rider, CLion, RubyMine and RustRover.<br/>
+Made by <a href="https://flightcoders.com">FlightCoders</a>, the team behind <a href="https://veyraeditor.com">Veyra Studio</a>.
+Also for VS Code, as <a href="https://veyraeditor.com/aura">Veyra Aura</a>.</p>
+    ]]></description>
+
+    <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.lang</depends>
+    <depends optional="true" config-file="aura-git.xml">Git4Idea</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <toolWindow id="Aura" anchor="right" icon="/icons/aura.svg" factoryClass="com.flightcoders.veyra.aura.ui.AuraToolWindowFactory"/>
+        <statusBarWidgetFactory id="AuraVeyra.Widget" order="after positionWidget" implementation="com.flightcoders.veyra.aura.ui.AuraStatusBarFactory"/>
+        <postStartupActivity implementation="com.flightcoders.veyra.aura.AuraStartup"/>
+        <applicationConfigurable parentId="tools" id="AuraVeyra.Settings" displayName="Aura Veyra" instance="com.flightcoders.veyra.aura.ui.AuraConfigurable"/>
+        <notificationGroup id="Aura Veyra" displayType="BALLOON"/>
+    </extensions>
+
+    <applicationListeners>
+        <listener class="com.flightcoders.veyra.aura.AuraSaveListener" topic="com.intellij.openapi.fileEditor.FileDocumentManagerListener"/>
+    </applicationListeners>
+    <projectListeners>
+        <listener class="com.flightcoders.veyra.aura.AuraProblemListener" topic="com.intellij.problems.ProblemListener"/>
+        <listener class="com.flightcoders.veyra.aura.AuraTestListener" topic="com.intellij.execution.testframework.sm.runner.SMTRunnerEventsListener"/>
+        <listener class="com.flightcoders.veyra.aura.AuraBuildListener" topic="com.intellij.task.ProjectTaskListener"/>
+    </projectListeners>
+
+    <actions>
+        <group id="AuraVeyra.Menu" text="Aura" popup="true" icon="/icons/aura.svg">
+            <add-to-group group-id="ToolsMenu" anchor="last"/>
+            <action id="AuraVeyra.Show" class="com.flightcoders.veyra.aura.ui.ShowAuraAction" text="Show My Aura" description="Your aura, rank, streak and every move"/>
+            <action id="AuraVeyra.Share" class="com.flightcoders.veyra.aura.ui.ShareAuraCardAction" text="Share My Aura Card…" description="Save a 1200 × 630 aura card and copy its caption"/>
+            <action id="AuraVeyra.Caption" class="com.flightcoders.veyra.aura.ui.CopyAuraCaptionAction" text="Copy My Aura Caption" description="Copy a caption with your aura, rank and streak"/>
+            <action id="AuraVeyra.Reset" class="com.flightcoders.veyra.aura.ui.ResetAuraAction" text="Reset My Aura…" description="Start over at 0 aura"/>
+        </group>
+    </actions>
+</idea-plugin>
