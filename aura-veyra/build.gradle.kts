@@ -11,6 +11,11 @@ version = providers.gradleProperty("pluginVersion").get()
 
 kotlin {
     jvmToolchain(21)
+    compilerOptions {
+        // Use the IDE interfaces' own default methods instead of generating copies of them in our classes. The copies
+        // made JetBrains' Plugin Verifier report internal and deprecated API use (ToolWindowFactory.getIcon, getAnchor…).
+        freeCompilerArgs.add("-jvm-default=no-compatibility")
+    }
 }
 
 repositories {
