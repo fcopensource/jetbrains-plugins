@@ -1,0 +1,12 @@
+.gradle/
+.kotlin/
+build/
+.intellijPlatform/
+.idea/
+*.iml
+out/
+
+# JVM crash files
+hs_err_pid*.log
+replay_pid*.log
+build-log.txt

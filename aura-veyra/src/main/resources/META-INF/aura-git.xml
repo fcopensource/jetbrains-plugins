@@ -1,0 +1,6 @@
+<!-- Loaded only when the Git plugin is installed: commits earn aura. -->
+<idea-plugin>
+    <projectListeners>
+        <listener class="com.flightcoders.veyra.aura.git.AuraGitListener" topic="git4idea.repo.GitRepositoryChangeListener"/>
+    </projectListeners>
+</idea-plugin>
