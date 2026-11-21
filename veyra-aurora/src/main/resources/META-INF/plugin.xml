@@ -1,0 +1,42 @@
+<idea-plugin>
+    <id>com.flightcoders.veyra.aurora</id>
+    <name>Veyra Aurora</name>
+    <vendor email="hire@flightcoders.com" url="https://flightcoders.com">FlightCoders</vendor>
+
+    <description><![CDATA[
+<p><b>The northern lights, in your IDE.</b> A midnight-blue theme with aurora green, teal, ice blue and soft violet,
+plus a crisp light version. Easy on the eyes, beautiful in screenshots.</p>
+
+<h3>Two themes</h3>
+<ul>
+  <li><b>Veyra Aurora</b>: a deep midnight-blue sky with glowing aurora colours. Ice-blue keywords, aurora-green strings,
+      teal functions, violet types, pink fields and starlight-gold numbers.</li>
+  <li><b>Veyra Aurora Light</b>: clean white with the same palette, deepened for crisp, high-contrast code.</li>
+</ul>
+
+<h3>Every pixel themed</h3>
+<ul>
+  <li><b>The whole IDE</b>: toolbars, tool windows, tabs, popups, Search Everywhere, dialogs, the Run widget and notifications,
+      600+ parts of the IDE in one palette. On 2025.3 and newer you get the rounded <i>Islands</i> look.</li>
+  <li><b>Signature details</b>: an aurora green-to-violet default button, an aurora-green caret and tab underline, a gold
+      current line number and a green-to-violet progress bar.</li>
+  <li><b>Matching editor colour schemes</b> for Java, Kotlin, Python, JavaScript, TypeScript, HTML, CSS, SQL, Go, Rust, PHP,
+      Markdown and more, plus the debugger, diffs, VCS, search highlights and the terminal.</li>
+  <li><b>Easy to read</b>: every syntax colour meets WCAG AA contrast (4.5:1) on its background, comments included.</li>
+</ul>
+
+<h3>How to use it</h3>
+<p><b>Settings → Appearance &amp; Behavior → Appearance → Theme</b> and pick <b>Veyra Aurora</b> or <b>Veyra Aurora Light</b>.
+The matching editor colour scheme switches with it.</p>
+
+<p>Made by <a href="https://flightcoders.com">FlightCoders</a>, the team behind <a href="https://veyraeditor.com">Veyra Studio</a>.
+Prefer warm colours? Try <a href="https://plugins.jetbrains.com/plugin/36164-veyra-theme">Veyra Theme</a>.</p>
+    ]]></description>
+
+    <depends>com.intellij.modules.platform</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <themeProvider id="com.flightcoders.veyra.aurora.dark" path="/themes/veyra-aurora-dark.theme.json"/>
+        <themeProvider id="com.flightcoders.veyra.aurora.light" path="/themes/veyra-aurora-light.theme.json"/>
+    </extensions>
+</idea-plugin>
